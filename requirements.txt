@@ -1,0 +1,5 @@
+django
+mysql-connector-python
+Pillow
+xlwt
+
