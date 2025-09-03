@@ -1,0 +1,22 @@
+{% extends 'index.html' %}
+{% block contenido %}
+    <h2>{{ titulo }}</h2>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Marcas</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for marca in lista %}
+                    <tr>
+                        <td>{{marca.nombre}}</td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock contenido %}

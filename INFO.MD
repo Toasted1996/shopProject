@@ -13,3 +13,9 @@ py manage.py runserver
 
 # Instalar librerías desde requirments.txt
 pip install -r requirements.txt
+
+# Crear la migracion
+py manage.py makemigrations
+
+# Ejecutar la migracion
+py manage.py migrate
