@@ -24,5 +24,6 @@ urlpatterns = [
     
     #Importamos el archivo URLs de la aplicacion de productos
     path('producto/', include('productApp.urls')),
-    path('prodcuto/', include('productApp.urls'))
+    #path('prodcuto/', include('productApp.urls')),
+    #path('producto/', include('prodcutoApp.urls'))
 ]

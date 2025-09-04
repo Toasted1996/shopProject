@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from productApp.models import Marca, Categoria
+from productApp.models import Marca, Categoria, Producto
 
 # Create your views here.
 def inicio(request):
@@ -19,3 +19,11 @@ def categorias(request):
         'titulo': 'Categorias'
     }
     return render (request, 'producto/categorias.html', data)
+
+def productos(request):
+    lista = Producto.objects.all()
+    data = {
+        'lista':lista,
+        'titulo':'Productos'
+    }
+    return render(request, 'producto/productos.html', data)

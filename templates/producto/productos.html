@@ -1,0 +1,44 @@
+{% extends 'index.html' %}
+{% black title %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'inicio' %}">Inicio</a></li> 
+            <li class="breadcrumb-item active" aria-current="page">{{titulo}}</li>
+        </ol>      
+    </nav>
+
+    <!-- Header pagina -->
+    <div class="page-header">
+        <div class="container">
+            <h2 class="fw-bold">
+                <i class="bi bi-box"></i>{{titulo}}
+            </h2>
+            <p>Explora nuestros productos</p>
+        </div>
+    </div>
+
+    <!-- Grid de productos -->
+    <div class="product-grid">
+        <div class="row g-4">
+            {% for producto in lista %}
+            <div class="col lg-4 col-md-6- col-sm-12">
+                <div class="card product-card h-100">
+                    <div class="card-body text-center">
+                        <div class="card-icon text-primary">
+                            <i class="bi bi-box"></i>
+                        </div>
+                        <h5 class="card-title fw-bold">{{producto.nombre}}</h5>
+                        <p class="card-text">{{producto.descripcion}}, {{producto.precio}}, {{producto.marca}}</p>
+                        <div class="card-actions"><a href="#" class="btn btn-outline-primary">
+                            <i class="bi bi-eye me-1"></i>Ver Producto
+                        </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
