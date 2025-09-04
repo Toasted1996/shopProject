@@ -14,9 +14,12 @@ class Marca(models.Model):
         db_table = 'marca'
         
 class Categoria(models.Model):
+    #Atributos de la clase, CharField es el tipo de datos del atributo
     nombre =  models.CharField(max_length=30)
+    #Metodo str y sirve para mostar el objeto
     def __str__(self):
         return self.nombre
+    #Meta para definir algunas variables    
     class Meta:
         db_table = 'categoria'
         

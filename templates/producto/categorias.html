@@ -1,13 +1,92 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Categoria</title>
-</head>
-<body>
-    <div>
-        
+{% extends 'index.html' %}
+{% block title %}{{ titulo }}{% endblock %}
+
+{% block contenido %}
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ titulo }}</li>
+        </ol>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h2 class="fw-bold">
+                <i class="bi bi-grid me-2"></i>{{ titulo }}
+            </h2>
+            <p>Explora nuestras categorías de productos</p>
+        </div>
     </div>
-</body>
-</html>
+
+    <!-- Categories Grid -->
+    <div class="product-grid">
+        <div class="row g-4">
+            {% for categoria in lista %}
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card product-card h-100">
+                        <div class="card-body text-center">
+                            <div class="card-icon text-success">
+                                <i class="bi bi-grid"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">{{ categoria.nombre }}</h5>
+                            <p class="card-text">Descubre productos de esta categoría</p>
+                            <div class="card-actions">
+                                <div class="d-flex justify-content-center gap-2">
+                                    <a href="#" class="btn btn-outline-success">
+                                        <i class="bi bi-eye me-1"></i>Ver Productos
+                                    </a>
+                                    <button class="btn btn-outline-secondary">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="empty-state">
+                        <i class="bi bi-inbox empty-icon"></i>
+                        <h4>No hay categorías disponibles</h4>
+                        <p>Pronto tendremos nuevas categorías para ti</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Statistics Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card stats-card">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        <i class="bi bi-bar-chart me-2"></i>Estadísticas
+                    </h5>
+                    <div class="row text-center">
+                        <div class="col-md-4">
+                            <div class="stats-item">
+                                <div class="stats-number text-primary">{{ lista.count }}</div>
+                                <div class="stats-label">Categorías Totales</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stats-item">
+                                <div class="stats-number text-success">0</div>
+                                <div class="stats-label">Productos Activos</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stats-item">
+                                <div class="stats-number text-warning">0</div>
+                                <div class="stats-label">Marcas Asociadas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock contenido %}

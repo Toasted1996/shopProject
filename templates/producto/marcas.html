@@ -1,22 +1,101 @@
 {% extends 'index.html' %}
+{% block title %}{{ titulo }}{% endblock %}
+
 {% block contenido %}
-    <h2>{{ titulo }}</h2>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Marcas</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for marca in lista %}
-                    <tr>
-                        <td>{{marca.nombre}}</td>
-                        <td></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'inicio' %}">Inicio</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ titulo }}</li>
+        </ol>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h2 class="fw-bold">
+                <i class="bi bi-tags me-2"></i>{{ titulo }}
+            </h2>
+            <p>Explora nuestra colección de marcas exclusivas</p>
+        </div>
+    </div>
+
+    <!-- Brands Grid -->
+    <div class="product-grid">
+        <div class="row g-4">
+            {% for marca in lista %}
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card product-card h-100">
+                        <div class="card-body text-center">
+                            <div class="card-icon text-primary">
+                                <i class="bi bi-tag"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">{{ marca.nombre }}</h5>
+                            <p class="card-text">Descubre productos de esta marca exclusiva</p>
+                            <div class="card-actions">
+                                <a href="#" class="btn btn-outline-primary">
+                                    <i class="bi bi-eye me-1"></i>Ver Productos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="empty-state">
+                        <i class="bi bi-inbox empty-icon"></i>
+                        <h4>No hay marcas disponibles</h4>
+                        <p>Pronto tendremos nuevas marcas para ti</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Alternative Table View (Hidden by default, can be toggled) -->
+    <div class="mt-5 d-none" id="tableView">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <i class="bi bi-table me-2"></i>Vista de Tabla
+                </h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Marca</th>
+                                <th>Productos</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for marca in lista %}
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-tag text-primary me-2"></i>
+                                            <span class="fw-medium">{{ marca.nombre }}</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-secondary">0 productos</span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-pencil"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock contenido %}
