@@ -22,7 +22,7 @@ class Categoria(models.Model):
         db_table = 'categoria'
         
 class Producto(models.Model):
-    codigo = models.AutoField(primary_key=True)
+    codigo = models.IntegerField()
     nombre = models.CharField(max_length=100, null = True)
     precio = models.IntegerField()
     
@@ -40,4 +40,4 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
     class Meta:
-        db_table = 'productos'
+        db_table = 'productos' 

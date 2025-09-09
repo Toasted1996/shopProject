@@ -1,4 +1,6 @@
+from django.contrib import messages
 from django.shortcuts import render
+from productApp.forms import marcaForm, categoriaForm
 from productApp.models import Marca, Categoria, Producto
 
 # Create your views here.
@@ -12,6 +14,30 @@ def marcas(request):
             'titulo': 'Marcas'}
     return render(request, 'producto/marcas.html', data)
 
+
+            #VISTA PARA CREAR MARCA -- FORMULARIO
+def crearMarca(request):
+    form = marcaForm()
+    data={
+        'titulo': 'Crear Marca',
+        'form': form,
+        'ruta': '/marcas/'
+    }
+    
+    if request.method == 'POST':
+        # cargar los datos del formulario
+        form = marcaForm(request.POST)
+        # si el formulario es valido
+        if form.is_valid():
+        # guardar el formulario en la base de datos
+            form.save()
+            # enviamos mensaje de éxito
+        messages.success(request,'Marca creada correctamente')
+    return render(request, 'producto/create.html', data)
+
+
+
+
 def categorias(request):
     lista = Categoria.objects.all()
     data = {
@@ -19,6 +45,24 @@ def categorias(request):
         'titulo': 'Categorias'
     }
     return render (request, 'producto/categorias.html', data)
+
+    #METODO PARA CREAR CATEGORIA
+def crearCategoria(request):
+    form = categoriaForm()
+    data= {
+        'titulo': 'Crear Categoria',
+        'form': form,
+        'ruta': 'producto/categorias.html'
+    }
+    
+    if request.method == 'POST':
+        form = categoriaForm(request.POST)
+        if form.is_valid():
+            form.save()
+        messages.success(request, 'Categoria creada correctamente')
+    return render(request, 'producto/create.html', data)
+
+
 
 def productos(request):
     lista = Producto.objects.all()

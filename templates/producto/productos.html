@@ -24,22 +24,48 @@
     <div class="product-grid">
         <div class="row g-4">
             {% for producto in lista %}
-            <div class="col lg-4 col-md-6- col-sm-12">
+            <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card product-card h-100">
                     <div class="card-body text-center">
                         <div class="card-icon text-primary">
                             <i class="bi bi-box"></i>
                         </div>
-                        <h5 class="card-title fw-bold">{{producto.nombre}}</h5>
-                        <p class="card-text">{{producto.descripcion}}, {{producto.precio}}, {{producto.marca}}</p>
-                        <div class="card-actions"><a href="#" class="btn btn-outline-primary">
-                            <i class="bi bi-eye me-1"></i>Ver Producto
-                        </a>
+                        <h5 class="card-title fw-bold">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion|truncatechars:100 }}</p>
+                        <div class="product-info mb-3">
+                            <div class="row text-center">
+                                <div class="col-6">
+                                    <small class="text-muted">Precio</small>
+                                    <div class="fw-bold text-success">${{ producto.precio }}</div>
+                                </div>
+                                <div class="col-6">
+                                    <small class="text-muted">Stock</small>
+                                    <div class="fw-bold text-primary">{{ producto.stock }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="#" class="btn btn-outline-primary">
+                                    <i class="bi bi-eye me-1"></i>Ver Producto
+                                </a>
+                                <button class="btn btn-outline-secondary">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="empty-state">
+                        <i class="bi bi-inbox empty-icon"></i>
+                        <h4>No hay productos disponibles</h4>
+                        <p>Pronto tendremos nuevos productos para ti</p>
+                    </div>
+                </div>
             {% endfor %}
         </div>
     </div>
-    {% endblock %}
+{% endblock contenido %}

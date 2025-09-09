@@ -12,11 +12,18 @@
 
     <!-- Page Header -->
     <div class="page-header">
-        <div class="container">
-            <h2 class="fw-bold">
-                <i class="bi bi-tags me-2"></i>{{ titulo }}
-            </h2>
-            <p>Explora nuestra colección de marcas exclusivas</p>
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1">
+                    <i class="bi bi-tags me-2"></i>{{ titulo }}
+                </h2>
+                <p class="mb-0">Explora nuestra colección de marcas exclusivas</p>
+            </div>
+            <div>
+                <a href="{% url 'cmarca' %}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-1"></i>Crear Marca
+                </a>
+            </div>
         </div>
     </div>
 
@@ -44,8 +51,8 @@
                 <div class="col-12">
                     <div class="empty-state">
                         <i class="bi bi-inbox empty-icon"></i>
-                        <h4>No hay marcas disponibles</h4>
-                        <p>Pronto tendremos nuevas marcas para ti</p>
+                        <h4>Crear tu propia marca</h4>
+                        <a href="{% url 'cmarca' %}" class="btn">Crear Marca</a>
                     </div>
                 </div>
             {% endfor %}

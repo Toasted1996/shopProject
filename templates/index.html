@@ -20,8 +20,14 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'inicio' %}">
-                <i class="bi bi-shop me-2"></i>Shoppyco
+            <a class="navbar-brand d-flex align-items-center" href="{% url 'inicio' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="me-2">
+                    <path d="M3 9l1-5h16l1 5"/>
+                    <path d="M21 9v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9"/>
+                    <path d="M7 13h10"/>
+                    <path d="M7 17h6"/>
+                </svg>
+                Shoppyco
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -133,7 +139,7 @@
                         <li><a href="{% url 'inicio' %}" class="text-muted text-decoration-none">Inicio</a></li>
                         <li><a href="{% url 'marcas' %}" class="text-muted text-decoration-none">Marcas</a></li>
                         <li><a href="{% url 'categorias' %}" class="text-muted text-decoration-none">Categorías</a></li>
-                        <li><a href="#" class="text-muted text-decoration-none">Productos</a></li>
+                        <li><a href="{% url 'productos' %}" class="text-muted text-decoration-none">Productos</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4 mb-4">
