@@ -12,11 +12,18 @@
 
     <!-- Header pagina -->
     <div class="page-header">
-        <div class="container">
-            <h2 class="fw-bold">
-                <i class="bi bi-box"></i>{{titulo}}
-            </h2>
-            <p>Explora nuestros productos</p>
+        <div class="container d-flex justify-content-between align-items-center">
+            <div>
+                <h2 class="fw-bold mb-1">
+                    <i class="bi bi-tags me-2"></i>{{ titulo }}
+                </h2>
+                <p class="mb-0">Explora nuestra colección de productos</p>
+            </div>
+            <div>
+                <a href="{% url 'cproducto' %}" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-1"></i>Crear producto
+                </a>
+            </div>
         </div>
     </div>
 
@@ -61,8 +68,6 @@
                 <div class="col-12">
                     <div class="empty-state">
                         <i class="bi bi-inbox empty-icon"></i>
-                        <h4>No hay productos disponibles</h4>
-                        <p>Pronto tendremos nuevos productos para ti</p>
                     </div>
                 </div>
             {% endfor %}

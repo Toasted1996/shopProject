@@ -15,7 +15,6 @@ class Migration(migrations.Migration):
             name='Producto',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('codigo', models.IntegerField()),
                 ('nombre', models.CharField(max_length=100, null=True)),
                 ('precio', models.IntegerField()),
                 ('stock', models.PositiveBigIntegerField()),
