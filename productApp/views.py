@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from productApp.forms import marcaForm, categoriaForm, productoForm
 from productApp.models import Marca, Categoria, Producto
 
@@ -7,7 +7,7 @@ from productApp.models import Marca, Categoria, Producto
 def inicio(request):
     return render(request, 'index.html')
 
-#VISTA PARA LISTAR MARCAS
+#View para listar marcas
 def marcas(request):
     # traemos todos los elementos de la lista de marcas
     lista = Marca.objects.all() #Marcas.objects.all() === select * from marcas
@@ -15,7 +15,7 @@ def marcas(request):
             'titulo': 'Marcas'}
     return render(request, 'producto/marcas.html', data)
 
-#METODO PARA CREAR MARCA -- FORMULARIO
+#Metodo para crear Marca -- FORMULARIO
 def crearMarca(request):
     form = marcaForm()
     data={
@@ -35,7 +35,7 @@ def crearMarca(request):
         messages.success(request,'Marca creada correctamente')
     return render(request, 'producto/create.html', data)
 
-#VISTA PARA LISTAR CATEGORIA
+#View para listar categoria
 def categorias(request):
     lista = Categoria.objects.all()
     data = {
@@ -44,7 +44,7 @@ def categorias(request):
     }
     return render (request, 'producto/categorias.html', data)
 
-#METODO PARA CREAR CATEGORIA -- FORMULARIO
+#Metodo para crear categoria -- FORMULARIO
 def crearCategoria(request):
     form = categoriaForm()
     data= {
@@ -60,7 +60,8 @@ def crearCategoria(request):
         messages.success(request, 'Categoria creada correctamente')
     return render(request, 'producto/create.html', data)
 
-#VISTA PARA LISTAR PRODUCTOS
+#View para listar producto 
+
 def productos(request):
     lista = Producto.objects.all()
     data = {
@@ -69,7 +70,7 @@ def productos(request):
     }
     return render(request, 'producto/productos.html', data)
 
-#METODO PARA CREAR PRODUCTO -- FORMULARIO
+#Metodo para crear Producto -- FORMULARIO
 def crearProducto(request):
     if request.method == 'POST':
         form = productoForm(request.POST, request.FILES)
@@ -85,3 +86,12 @@ def crearProducto(request):
         'ruta':'producto/productos.html'
     }
     return render(request, 'producto/create.html', data)
+
+#View para ver detalle producto
+def verProducto(request, id):
+    producto = get_object_or_404(Producto, pk=id)
+    data = {
+        'descripcion': producto.descripcion,
+        'titulo': producto.nombre     
+    }
+    return render (request, 'producto/detalle.html', data)
