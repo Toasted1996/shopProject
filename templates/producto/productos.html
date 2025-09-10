@@ -33,10 +33,14 @@
             {% for producto in lista %}
             <div class="col-lg-4 col-md-6 col-sm-12">
                 <div class="card product-card h-100">
-                    <div class="card-body text-center">
-                        <div class="card-icon text-primary">
-                            <i class="bi bi-box"></i>
+                    {% if producto.foto %}
+                        <img src="{{ producto.foto.url }}" class="card-img-top" alt="{{ producto.nombre }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div class="card-icon text-primary p-4">
+                            <i class="bi bi-box" style="font-size: 3rem;"></i>
                         </div>
+                    {% endif %}
+                    <div class="card-body text-center">
                         <h5 class="card-title fw-bold">{{ producto.nombre }}</h5>
                         <p class="card-text">{{ producto.descripcion|truncatechars:100 }}</p>
                         <div class="product-info mb-3">
@@ -53,7 +57,7 @@
                         </div>
                         <div class="card-actions">
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="#" class="btn btn-outline-primary">
+                                <a href="{% url 'vproducto' producto.codigo %}" class="btn btn-outline-primary">
                                     <i class="bi bi-eye me-1"></i>Ver Producto
                                 </a>
                                 <button class="btn btn-outline-secondary">
