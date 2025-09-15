@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from productApp.forms import marcaForm, categoriaForm, productoForm
 from productApp.models import Marca, Categoria, Producto
 
@@ -89,9 +89,43 @@ def crearProducto(request):
 
 #View para ver detalle producto
 def verProducto(request, id):
-    producto = get_object_or_404(Producto, pk=id)
+    producto = Producto.objects.get(pk=id)
     data = {
         'descripcion': producto.descripcion,
         'titulo': producto.nombre     
     }
     return render (request, 'producto/detalle.html', data)
+
+
+def eliminarProducto(request, codigo):
+    #Buscamos el producto por su codigo:
+    prod = Producto.objects.get(pk=codigo)
+    #preguntamos si el producto tiene foto asociada
+    if prod.foto:
+        #eliminamos la foto del producto
+        prod.foto.delete()
+    #eliminamos el producto
+    prod.delete()
+    #permite redireccionar al template de productos
+    return redirect(to="/producto/productos.html")
+    
+    
+def editarProducto(request, codigo):
+    prod = Producto.objects.get(pk=codigo)
+    if request.method == 'POST':
+        if request.FILES.get('foto', False):
+            if prod.foto:
+                prod.foto.delete()
+                form = productoForm(request.POST, request.FILES, instance=prod)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Producto editado correctamente')
+    else:
+        form = productoForm(instance=prod)
+
+    data = {
+        'titulo':'Editar producto',
+        'form': form,
+        'ruta':'producto/productos.html'
+    }
+    return render(request, 'producto/create.html', data)  
