@@ -20,12 +20,12 @@
                 <p class="mb-0">Explora nuestra colección de productos</p>
             </div>
             <div>
-                <form method="POST" class="styled-form">
+                <!-- <form method="POST" class="styled-form">
                     {% csrf_token %}
                     <label for="filtro_texto">Buscar producto</label>
                     <input type="text" id="filtro_texto" name="filtro_texto" class="form-control" placeholder="Nombre del producto">
-                    <button type="submit" class="btn btn-secondary mt-2">Buscar</button>
-                </form>
+                    <button type="submit" class="btn btn-secondary mt-2">Buscar</button> -->
+                <!-- </form> -->
                 <a href="{% url 'cproducto' %}" class="btn btn-primary">
                     <i class="bi bi-plus-circle me-1"></i>Crear producto
                 </a>
@@ -34,6 +34,14 @@
     </div>
 
     <!-- Grid de productos -->
+    <div class=" row-cols-4 mb-4">
+        <form method="POST" class="style-form">
+            {% csrf_token %}
+            <label for="filtro_texto" class="bi bi-search">Busqueda</label>
+            <input type="text" id="filtro_texto" name="filtro_texto" class="form-control" placeholder="Encuentra tu producto">
+            <button type="submit" class="btn btn-outline-primary mt-2">Buscar</button>
+        </form>
+    </div>
     <div class="product-grid">
         <div class="row g-4">
             {% for producto in lista %}

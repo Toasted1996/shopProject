@@ -36,6 +36,41 @@ def crearMarca(request):
         messages.success(request,'Marca creada correctamente')
     return render(request, 'producto/create.html', data)
 
+#Metodo para editar marca -- Redirecciona al form de marca
+def editarMarca(request, id):
+    #Obetenemos la marca por su id
+    marca = Marca.objects.get(pk=id)
+    #validamos si el metodo es post
+    if request.method == 'POST':
+            #se cargan los datos del form, instance para indicar que es edicion
+        form = marcaForm(request.POST, instance = marca)
+            #si el formulario es valido
+        if form.is_valid():
+            #guarda el formulario arroja mensaje exitoso
+            form.save()
+            messages.success(request, 'Marca editada correctamente')
+            return redirect('marcas')  # Redirige después de guardar
+    #Si no es post (GET)
+    else:
+        #recarga los datos del formulario
+        form = marcaForm(instance=marca)
+        
+    #Datos para enviar al template (se ejecuta siempre)   
+    data = {
+        'titulo':'Editar marca',
+        'form' : form,
+        'ruta':'producto/marcas.html'
+    }    
+    return render(request, 'producto/create.html', data)
+
+
+#Metodo para eliminar marca -- recibe el id de la marca
+def eliminarMarca(request, id):
+    marca = Marca.objects.get(pk=id)
+    marca.delete()
+    messages.success(request, 'Marca eliminada correctamente')
+    return redirect(to='marcas')
+
 #View para listar categoria
 def categorias(request):
     lista = Categoria.objects.all()

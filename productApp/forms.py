@@ -1,7 +1,7 @@
-from tkinter import Place
 from django import forms
 from .models import Categoria, Marca, Producto
 
+#Modelo de datos para el formulario de marca
 class marcaForm(forms.ModelForm):
     class Meta:
         #Especificamos el modelo a usar
@@ -15,8 +15,8 @@ class marcaForm(forms.ModelForm):
                 'placeholder':'Nombre de la marca'
             })
         }
-        
-        
+
+#Modelo de datos para el formulario de categoria        
 class categoriaForm(forms.ModelForm):
     class Meta:
         model = Categoria
@@ -27,7 +27,8 @@ class categoriaForm(forms.ModelForm):
                 'placeholder':'Nombre de la categoria'
             })
         }
-        
+
+#Modelo de datos para el formulario de producto
 class productoForm(forms.ModelForm):
     class Meta:
         model = Producto
@@ -70,9 +71,10 @@ class productoForm(forms.ModelForm):
             })
         }
 
+#Modelo de datos para el formulario de filtro producto
 class FiltroProd(forms.Form):
     #Filtro para buscar texto en los productos
     texto = forms.CharField(required=False)
     #filtro para buscar por marca, queryset trae el listado de marcas
-    #emptylabel es para que no haya ninguna marca seleccionada por defecto 
-    marca = forms.ModelChoiceField(queryset = Marca.objects.all(), empty_label='Seleccione una marca', required=False)
+    #emptylabel es para que no haya ninguna marca seleccionada por defecto
+    marca = forms.ModelChoiceField(queryset=Marca.objects.all(), empty_label='Seleccione una marca', required=False)
