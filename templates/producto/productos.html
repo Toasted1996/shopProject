@@ -20,6 +20,12 @@
                 <p class="mb-0">Explora nuestra colección de productos</p>
             </div>
             <div>
+                <form method="POST" class="styled-form">
+                    {% csrf_token %}
+                    <label for="filtro_texto">Buscar producto</label>
+                    <input type="text" id="filtro_texto" name="filtro_texto" class="form-control" placeholder="Nombre del producto">
+                    <button type="submit" class="btn btn-secondary mt-2">Buscar</button>
+                </form>
                 <a href="{% url 'cproducto' %}" class="btn btn-primary">
                     <i class="bi bi-plus-circle me-1"></i>Crear producto
                 </a>
@@ -57,11 +63,15 @@
                         </div>
                         <div class="card-actions">
                             <div class="d-flex justify-content-center gap-2">
-                                <a href="{% url 'vproducto' producto.codigo %}" class="btn btn-outline-primary">
+                                <a href="{% url 'verProducto' producto.codigo %}" class="btn btn-outline-primary">
                                     <i class="bi bi-eye me-1"></i>Ver Producto
                                 </a>
-                                </button>
-                                <a href="{% url 'eproducto' producto.codigo %}" class="btn btn-outline-danger">
+                                <a href="{% url 'editarProducto' producto.codigo %}" class="btn btn-outline-warning">
+                                    <i class="bi bi-pencil me-1"></i>
+                                    Editar
+                                </a>
+                                {% url 'eliminarProducto' producto.codigo as eliminar_url %}
+                                <a href="javascript:void(0);" onclick="confirmarEliminacion('{{ eliminar_url }}')" class="btn btn-outline-danger">
                                     <i class="bi bi-trash me-1"></i>Eliminar
                                 </a>
                             </div>

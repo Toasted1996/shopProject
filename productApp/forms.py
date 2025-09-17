@@ -69,3 +69,10 @@ class productoForm(forms.ModelForm):
                 'placeholder':'Sube una imagen'
             })
         }
+
+class FiltroProd(forms.Form):
+    #Filtro para buscar texto en los productos
+    texto = forms.CharField(required=False)
+    #filtro para buscar por marca, queryset trae el listado de marcas
+    #emptylabel es para que no haya ninguna marca seleccionada por defecto 
+    marca = forms.ModelChoiceField(queryset = Marca.objects.all(), empty_label='Seleccione una marca', required=False)

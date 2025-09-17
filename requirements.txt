@@ -2,4 +2,4 @@ django
 mysql-connector-python
 Pillow
 xlwt
-
+sweetalert2

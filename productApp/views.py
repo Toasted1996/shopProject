@@ -1,7 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from productApp.forms import marcaForm, categoriaForm, productoForm
+from productApp.forms import marcaForm, categoriaForm, productoForm, FiltroProd
 from productApp.models import Marca, Categoria, Producto
+from django.db.models import Q 
 
 # Create your views here.
 def inicio(request):
@@ -60,13 +61,43 @@ def crearCategoria(request):
         messages.success(request, 'Categoria creada correctamente')
     return render(request, 'producto/create.html', data)
 
-#View para listar producto 
+#Metodo para editar categoria -- Redirecciona al form de categoria
+def editarCategoria(request, id):
+    cat = Categoria.objects.get(pk = id)
+    if request.method == 'POST':
+        form = categoriaForm(request.POST, instance=cat)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Categoria editada')
+    else:
+        form = categoriaForm(instance=cat)
 
+    data = {
+        'titulo':'Editar categoria',
+        'form': form,
+        'ruta':'producto/categorias.html'
+    }
+    return render(request, 'producto/create.html', data)
+
+#Metodo para eliminar categoria -- recibe el id de la categoria
+def eliminarCategoria(request, id):
+    cat = Categoria.objects.get(pk=id)
+    cat.delete()
+    messages.success(request, 'Categoria eliminada')
+    return redirect(to='producto/categorias.html')
+
+#View para listar producto con filtro de busqueda !!REVISAR!!
 def productos(request):
     lista = Producto.objects.all()
+    form = FiltroProd(request.POST)
+    texto = request.POST.get('filtro_texto')
+    #Comprueba que texto no es nulo ni una cadena vacia
+    if texto and texto != '':
+        lista = lista.filter(Q(nombre__icontains=texto))
     data = {
         'lista':lista,
-        'titulo':'Productos'
+        'titulo':'Productos',
+        'form': form
     }
     return render(request, 'producto/productos.html', data)
 
@@ -88,28 +119,22 @@ def crearProducto(request):
     return render(request, 'producto/create.html', data)
 
 #View para ver detalle producto
-def verProducto(request, id):
-    producto = Producto.objects.get(pk=id)
+def verProducto(request, codigo):
+    producto = Producto.objects.get(pk=codigo)
     data = {
         'descripcion': producto.descripcion,
         'titulo': producto.nombre     
     }
     return render (request, 'producto/detalle.html', data)
 
-
+#Metodo para eliminar producto, recibe el codigo del producto 
 def eliminarProducto(request, codigo):
-    #Buscamos el producto por su codigo:
-    prod = Producto.objects.get(pk=codigo)
-    #preguntamos si el producto tiene foto asociada
-    if prod.foto:
-        #eliminamos la foto del producto
-        prod.foto.delete()
-    #eliminamos el producto
+    prod = get_object_or_404(Producto, pk=codigo)
     prod.delete()
-    #permite redireccionar al template de productos
-    return redirect(to="/producto/productos.html")
-    
-    
+    messages.success(request, 'Producto eliminado correctamente')
+    return redirect(to='productos')
+
+#Metodo para editar producto -- recibe el codigo del producto y lo redirecciona al form de producto
 def editarProducto(request, codigo):
     prod = Producto.objects.get(pk=codigo)
     if request.method == 'POST':
